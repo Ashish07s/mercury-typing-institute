@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mercury Typing Institute – Nanded</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1208;
+    --cream: #f5efe0;
+    --gold: #c8902a;
+    --gold-light: #e8b84b;
+    --rust: #8b2e0f;
+    --paper: #ede5cc;
+    --dark-paper: #d4c9a8;
+    --typewriter-grey: #3a3530;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--cream);
+    color: var(--ink);
+    font-family: 'Courier Prime', monospace;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--paper); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+  /* ── HEADER / HERO ── */
+  header {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--ink);
+    padding: 2rem;
+  }
+
+  .header-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 80%, rgba(200,144,42,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(139,46,15,0.22) 0%, transparent 60%),
+      var(--ink);
+  }
+
+  /* Typewriter keys decorative background */
+  .keys-bg {
+    position: absolute; inset: 0;
+    overflow: hidden;
+    opacity: 0.05;
+  }
+  .keys-bg span {
+    position: absolute;
+    font-family: 'Special Elite', cursive;
+    font-size: clamp(1rem, 2vw, 2rem);
+    color: var(--cream);
+    animation: floatKey 12s ease-in-out infinite;
+    user-select: none;
+  }
+  @keyframes floatKey {
+    0%,100% { transform: translateY(0) rotate(-5deg); opacity: 0.6; }
+    50% { transform: translateY(-20px) rotate(5deg); opacity: 1; }
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 900px;
+  }
+
+  .badge {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    margin-bottom: 2rem;
+    animation: fadeSlideDown 0.8s ease both;
+  }
+
+  .brand {
+    font-family: 'Special Elite', cursive;
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    color: var(--gold-light);
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    animation: fadeSlideDown 0.9s ease both 0.1s;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 9vw, 8rem);
+    font-weight: 900;
+    font-style: italic;
+    line-height: 0.95;
+    color: var(--cream);
+    margin-bottom: 1.5rem;
+    animation: fadeSlideDown 1s ease both 0.2s;
+  }
+  .hero-title em {
+    font-style: normal;
+    color: var(--gold);
+    display: block;
+  }
+
+  .hero-subtitle {
+    font-family: 'Courier Prime', monospace;
+    font-size: clamp(0.8rem, 1.5vw, 1rem);
+    color: var(--dark-paper);
+    letter-spacing: 0.2em;
+    margin-bottom: 3rem;
+    animation: fadeSlideDown 1s ease both 0.35s;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    animation: fadeSlideDown 1s ease both 0.45s;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 14px 36px;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(200,144,42,0.4);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--cream);
+    border: 1px solid rgba(245,239,224,0.4);
+  }
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-3px);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(245,239,224,0.4);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    animation: bob 2s ease-in-out infinite;
+  }
+  .scroll-indicator::after {
+    content: '';
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+  @keyframes bob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+  /* ── MARQUEE TAPE ── */
+  .tape {
+    background: var(--gold);
+    padding: 12px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .tape-inner {
+    display: inline-flex;
+    gap: 0;
+    animation: marquee 20s linear infinite;
+  }
+  .tape span {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    padding: 0 2rem;
+  }
+  .tape span::before { content: '✦ '; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 100px 5vw; }
+
+  .section-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 2rem;
+  }
+
+  /* ── ABOUT ── */
+  .about {
+    background: var(--paper);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6vw;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .about::before {
+    content: '"';
+    position: absolute;
+    right: -2rem;
+    top: -3rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 25rem;
+    color: rgba(200,144,42,0.07);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .about-text p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--typewriter-grey);
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .stat-item {
+    border-left: 3px solid var(--gold);
+    padding-left: 1.2rem;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 4px;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+  .typewriter-art {
+    background: var(--ink);
+    padding: 2.5rem;
+    position: relative;
+  }
+  .typewriter-art::before {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border: 1px solid var(--gold);
+    opacity: 0.3;
+  }
+  .typewriter-art pre {
+    font-family: 'Courier Prime', monospace;
+    font-size: clamp(0.4rem, 1vw, 0.65rem);
+    color: var(--gold);
+    line-height: 1.4;
+    white-space: pre;
+  }
+
+  /* ── COURSES ── */
+  .courses { background: var(--cream); }
+
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .course-card {
+    background: var(--paper);
+    padding: 2.5rem;
+    position: relative;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+  .course-card:hover {
+    border-bottom-color: var(--gold);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(26,18,8,0.15);
+  }
+  .course-card::before {
+    content: attr(data-num);
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: rgba(200,144,42,0.12);
+    line-height: 1;
+  }
+  .course-icon {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+  }
+  .course-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+  }
+  .course-desc {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: var(--typewriter-grey);
+    margin-bottom: 1.5rem;
+  }
+  .course-tag {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--gold);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+  }
+
+  /* ── WHY US ── */
+  .why {
+    background: var(--ink);
+    color: var(--cream);
+    position: relative;
+    overflow: hidden;
+  }
+  .why::before {
+    content: 'MERCURY';
+    position: absolute;
+    left: -2rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    font-family: 'Playfair Display', serif;
+    font-size: 15rem;
+    font-weight: 900;
+    color: rgba(200,144,42,0.04);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .why .section-title { color: var(--cream); }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 3rem;
+    margin-top: 4rem;
+  }
+  .why-item { position: relative; padding-top: 1rem; }
+  .why-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 30px; height: 2px;
+    background: var(--gold);
+  }
+  .why-item h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    margin-top: 1rem;
+  }
+  .why-item p {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: rgba(245,239,224,0.65);
+  }
+
+  /* ── CONTACT ── */
+  .contact {
+    background: var(--paper);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6vw;
+    align-items: start;
+  }
+
+  .contact-info { padding-top: 1rem; }
+  .contact-item {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--dark-paper);
+  }
+  .contact-item:last-child { border-bottom: none; }
+  .contact-icon {
+    width: 42px; height: 42px;
+    background: var(--ink);
+    color: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .contact-item h4 {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .contact-item p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .contact-item a {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .contact-item a:hover { color: var(--rust); }
+
+  /* Contact Form */
+  .contact-form-wrap {
+    background: var(--ink);
+    padding: 3rem;
+  }
+  .contact-form-wrap h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 0.4rem;
+  }
+  .contact-form-wrap p {
+    font-size: 0.8rem;
+    color: rgba(245,239,224,0.5);
+    margin-bottom: 2rem;
+    letter-spacing: 0.1em;
+  }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label {
+    display: block;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: rgba(245,239,224,0.06);
+    border: 1px solid rgba(245,239,224,0.15);
+    color: var(--cream);
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.9rem;
+    padding: 12px 16px;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(245,239,224,0.25); }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--gold); }
+  .form-group select option { background: var(--ink); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 4rem 5vw 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(200,144,42,0.2);
+  }
+  .footer-logo {
+    font-family: 'Special Elite', cursive;
+    font-size: 2rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    margin-bottom: 0.5rem;
+  }
+  .footer-tagline {
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    color: rgba(245,239,224,0.35);
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+  }
+  .footer-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(200,144,42,0.4), transparent);
+    margin: 2rem 0;
+  }
+  .footer-bottom {
+    font-size: 0.7rem;
+    color: rgba(245,239,224,0.25);
+    letter-spacing: 0.15em;
+  }
+  .footer-bottom strong { color: var(--gold); }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.4s, box-shadow 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(26,18,8,0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 30px rgba(0,0,0,0.4);
+  }
+  .nav-logo {
+    font-family: 'Special Elite', cursive;
+    font-size: 1.2rem;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(245,239,224,0.65);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta {
+    background: var(--gold);
+    color: var(--ink);
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 9px 22px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold-light); }
+
+  /* Hamburger */
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 2px; background: var(--cream); transition: all 0.3s; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .about, .contact { grid-template-columns: 1fr; }
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    nav { padding: 1rem 5vw; }
+    .typewriter-art { display: none; }
+    .about::before { font-size: 15rem; }
+    section { padding: 70px 5vw; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">MERCURY</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="tel:7066599886" class="nav-cta">📞 Enroll Now</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<header>
+  <div class="header-bg"></div>
+  <div class="keys-bg" id="keybg"></div>
+
+  <div class="header-content">
+    <div class="badge">Est. in Nanded · Since Years</div>
+    <div class="brand">Mercury Computer &amp; Typing</div>
+    <h1 class="hero-title">
+      Master the<br>
+      <em>Keys to<br>Your Future</em>
+    </h1>
+    <p class="hero-subtitle">Professional Computer &amp; Typing Training · Nanded, Maharashtra</p>
+    <div class="hero-cta">
+      <a href="#courses" class="btn btn-primary">Explore Courses</a>
+      <a href="#contact" class="btn btn-outline">Get In Touch</a>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">Scroll</div>
+</header>
+
+<!-- ── TAPE ── -->
+<div class="tape">
+  <div class="tape-inner">
+    <span>MS-CIT Certified</span>
+    <span>Typing Speed Training</span>
+    <span>Computer Basics</span>
+    <span>Tally ERP</span>
+    <span>DTP Courses</span>
+    <span>Government Exam Prep</span>
+    <span>Spoken English</span>
+    <span>Expert Faculty</span>
+    <span>MS-CIT Certified</span>
+    <span>Typing Speed Training</span>
+    <span>Computer Basics</span>
+    <span>Tally ERP</span>
+    <span>DTP Courses</span>
+    <span>Government Exam Prep</span>
+    <span>Spoken English</span>
+    <span>Expert Faculty</span>
+  </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section class="about" id="about">
+  <div class="about-text reveal">
+    <div class="section-label">About the Institute</div>
+    <h2 class="section-title">Where Skills<br>Meet Success</h2>
+    <p>Mercury Computer &amp; Typing Institute is one of Nanded's most trusted training centres, dedicated to equipping students with practical, job-ready computer and typing skills. Located near Vishnu Nagar, Gokul Nagar, Shivaji Nagar — we bring quality education to your doorstep.</p>
+    <p>Led by <strong>Chinmay Patil</strong>, our institute provides hands-on learning with modern equipment, experienced instructors, and a track record of student success across government jobs, private sectors, and beyond.</p>
+    <div class="stat-grid">
+      <div class="stat-item">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Students Trained</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Courses Offered</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Practical Training</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Career Opportunities</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-visual reveal">
+    <div class="typewriter-art">
+<pre>
+  ╔═══════════════════════════╗
+  ║  M E R C U R Y            ║
+  ║  ─────────────────────    ║
+  ║                           ║
+  ║  [Q][W][E][R][T][Y][U]   ║
+  ║   [A][S][D][F][G][H]     ║
+  ║    [Z][X][C][V][B]       ║
+  ║                           ║
+  ║  ┌─────────────────────┐ ║
+  ║  │  TYPE YOUR FUTURE   │ ║
+  ║  └─────────────────────┘ ║
+  ║                           ║
+  ║  SPEED · ACCURACY · JOBS  ║
+  ╚═══════════════════════════╝
+</pre>
+    </div>
+  </div>
+</section>
+
+<!-- ── COURSES ── -->
+<section class="courses" id="courses">
+  <div class="section-label reveal">What We Teach</div>
+  <h2 class="section-title reveal">Our Courses</h2>
+
+  <div class="courses-grid">
+    <div class="course-card reveal" data-num="01">
+      <div class="course-icon">⌨️</div>
+      <div class="course-name">Typing Mastery</div>
+      <p class="course-desc">English &amp; Marathi typing with speed and accuracy training. Ideal for government job aspirants and competitive exam candidates.</p>
+      <span class="course-tag">Most Popular</span>
+    </div>
+
+    <div class="course-card reveal" data-num="02">
+      <div class="course-icon">💻</div>
+      <div class="course-name">MS-CIT</div>
+      <p class="course-desc">Maharashtra State Certificate in Information Technology — the most recognized computer literacy certificate for government jobs in Maharashtra.</p>
+      <span class="course-tag">Government Approved</span>
+    </div>
+
+    <div class="course-card reveal" data-num="03">
+      <div class="course-icon">📊</div>
+      <div class="course-name">Tally ERP / GST</div>
+      <p class="course-desc">Accounting software training with GST billing, inventory management, and financial reporting for business &amp; job readiness.</p>
+      <span class="course-tag">Job Ready</span>
+    </div>
+
+    <div class="course-card reveal" data-num="04">
+      <div class="course-icon">🖨️</div>
+      <div class="course-name">DTP (Desktop Publishing)</div>
+      <p class="course-desc">CorelDraw, Photoshop, PageMaker and design tools for print media, banners, brochures, and creative design careers.</p>
+      <span class="course-tag">Creative Skills</span>
+    </div>
+
+    <div class="course-card reveal" data-num="05">
+      <div class="course-icon">🌐</div>
+      <div class="course-name">Computer Basics</div>
+      <p class="course-desc">MS Office (Word, Excel, PowerPoint), internet usage, email, and essential digital skills for the modern workplace.</p>
+      <span class="course-tag">Beginner Friendly</span>
+    </div>
+
+    <div class="course-card reveal" data-num="06">
+      <div class="course-icon">🏆</div>
+      <div class="course-name">Govt. Exam Typing Test</div>
+      <p class="course-desc">Targeted preparation for police bharti, talathi, MPSC, and other government recruitment typing tests with mock exams.</p>
+      <span class="course-tag">Exam Focused</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY ── -->
+<section class="why" id="why">
+  <div class="section-label reveal">Why Choose Us</div>
+  <h2 class="section-title reveal">The Mercury<br>Advantage</h2>
+
+  <div class="why-grid">
+    <div class="why-item reveal">
+      <h3>Expert Guidance</h3>
+      <p>Our instructor Chinmay Patil brings years of hands-on experience to deliver quality education that actually gets students placed and certified.</p>
+    </div>
+    <div class="why-item reveal">
+      <h3>Modern Equipment</h3>
+      <p>Updated computers and software so students train on the same tools they'll use in real jobs — no outdated, time-wasting technology.</p>
+    </div>
+    <div class="why-item reveal">
+      <h3>Flexible Batches</h3>
+      <p>Morning, afternoon and evening batches to accommodate students, working professionals, and housewives — education for everyone.</p>
+    </div>
+    <div class="why-item reveal">
+      <h3>Proven Results</h3>
+      <p>Hundreds of students have cleared government typing tests, MS-CIT exams, and secured employment after training at Mercury Institute.</p>
+    </div>
+    <div class="why-item reveal">
+      <h3>Affordable Fees</h3>
+      <p>World-class training at fees that are accessible to every section of Nanded society. Quality education should not be a luxury.</p>
+    </div>
+    <div class="why-item reveal">
+      <h3>Certificate Provided</h3>
+      <p>Earn recognized certificates on course completion that strengthen your resume and demonstrate your professional skill level.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="contact" id="contact">
+  <div class="contact-info reveal">
+    <div class="section-label">Reach Us</div>
+    <h2 class="section-title">Let's Get<br>You Started</h2>
+
+    <div class="contact-item">
+      <div class="contact-icon">📞</div>
+      <div>
+        <h4>Phone / WhatsApp</h4>
+        <a href="tel:7066599886">+91 70665 99886</a>
+      </div>
+    </div>
+
+    <div class="contact-item">
+      <div class="contact-icon">👤</div>
+      <div>
+        <h4>Institute Head</h4>
+        <p>Chinmay Patil</p>
+      </div>
+    </div>
+
+    <div class="contact-item">
+      <div class="contact-icon">📍</div>
+      <div>
+        <h4>Address</h4>
+        <p>Near Vishnu Nagar, Gokul Nagar,<br>Shivaji Nagar, Nanded, Maharashtra</p>
+      </div>
+    </div>
+
+    <div class="contact-item">
+      <div class="contact-icon">🕐</div>
+      <div>
+        <h4>Batch Timings</h4>
+        <p>Morning · Afternoon · Evening</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form-wrap reveal">
+    <h3>Enquire Now</h3>
+    <p>Fill in your details and we'll call you back</p>
+
+    <div class="form-group">
+      <label>Your Name</label>
+      <input type="text" placeholder="e.g. Rahul Sharma">
+    </div>
+    <div class="form-group">
+      <label>Phone Number</label>
+      <input type="tel" placeholder="+91 XXXXXXXXXX">
+    </div>
+    <div class="form-group">
+      <label>Course Interested In</label>
+      <select>
+        <option value="">Select a course...</option>
+        <option>Typing Mastery</option>
+        <option>MS-CIT</option>
+        <option>Tally ERP / GST</option>
+        <option>DTP – Desktop Publishing</option>
+        <option>Computer Basics</option>
+        <option>Govt. Exam Typing Test</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Message (optional)</label>
+      <textarea rows="3" placeholder="Any questions or preferred batch timing..."></textarea>
+    </div>
+    <button class="btn btn-primary" onclick="submitForm()" style="width:100%;margin-top:0.5rem;cursor:pointer;">
+      Send Enquiry →
+    </button>
+    <p id="form-msg" style="margin-top:1rem;font-size:0.8rem;color:var(--gold);display:none;">
+      ✓ Thank you! We'll contact you shortly.
+    </p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">MERCURY</div>
+  <div class="footer-tagline">Computer &amp; Typing Institute · Nanded</div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    © 2025 Mercury Computer &amp; Typing Institute · Managed by <strong>Chinmay Patil</strong> · 
+    <a href="tel:7066599886" style="color:var(--gold);text-decoration:none;">+91 70665 99886</a>
+  </div>
+</footer>
+
+<script>
+  // Floating keys background
+  const keys = 'QWERTYUIOPASDFGHJKLZXCVBNM1234567890'.split('');
+  const bg = document.getElementById('keybg');
+  for(let i = 0; i < 40; i++){
+    const s = document.createElement('span');
+    s.textContent = keys[Math.floor(Math.random()*keys.length)];
+    s.style.left = Math.random()*100 + 'vw';
+    s.style.top = Math.random()*100 + 'vh';
+    s.style.animationDelay = Math.random()*8 + 's';
+    s.style.animationDuration = (8 + Math.random()*8) + 's';
+    s.style.fontSize = (0.8 + Math.random()*2.5) + 'rem';
+    bg.appendChild(s);
+  }
+
+  // Sticky nav
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Form submit
+  function submitForm(){
+    document.getElementById('form-msg').style.display = 'block';
+  }
+
+  // Mobile menu (basic toggle)
+  function toggleMenu(){
+    const links = document.querySelector('.nav-links');
+    if(links.style.display === 'flex'){
+      links.style.display = 'none';
+    } else {
+      links.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:rgba(26,18,8,0.97);padding:2rem 5vw;gap:1.5rem;';
+    }
+  }
+</script>
+</body>
+</html>
